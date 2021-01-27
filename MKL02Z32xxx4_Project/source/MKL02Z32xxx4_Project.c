@@ -116,6 +116,15 @@ int main(void) {
 						printf("MMA8451 error\r\n");
 
 					break;
+				case 'x':
+				    			case 'X':
+				    			i2c0MasterReadByte(&new_data_MSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_X_MSB);
+
+				    			i2c0MasterReadByte(&new_data_LSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_X_LSB);
+
+				    				final_data=(new_data_MSB<<6)|(new_data_LSB>>2);
+
+				    						printf("el dato es: %d \r\n ", final_data);
 				}
     		}else{
     			printf("error\r\n");
