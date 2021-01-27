@@ -28,6 +28,12 @@
 
 #define MMA8451_WHO_AM_I_MEMORY_ADDRESS		0x0D
 
+#define MMA8451_OUT_X_MSB  0x01
+#define MMA8451_OUT_X_LSB  0x02
+#define MMA8451_OUT_Y_MSB  0x03
+#define MMA8451_OUT_Y_LSB  0x04
+#define MMA8451_OUT_Z_MSB  0x05
+#define MMA8451_OUT_Z_LSB  0x06
 /*******************************************************************************
  * Private Prototypes
  ******************************************************************************/
@@ -55,11 +61,15 @@ int main(void) {
 	status_t status;
 	uint8_t nuevo_byte_uart;
 	uint8_t	nuevo_dato_i2c;
+	uint16_t new_data_MSB;
+	    	uint16_t new_data_LSB;
+	    	int16_t final_data ;
 
   	/* Init board hardware. */
-    BOARD_InitBootPins();
+                                                                                                                                                                           BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
+
 #ifndef BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
@@ -109,7 +119,43 @@ int main(void) {
 						printf("MMA8451 error\r\n");
 
 					break;
+					/*funcion X de el acelerometro*/
+				case 'x':
+				case 'X':
+				    			i2c0MasterReadByte(&new_data_MSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_X_MSB);
+
+				    			i2c0MasterReadByte(&new_data_LSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_X_LSB);
+
+				    			final_data=(new_data_MSB<<6)|(new_data_LSB>>2);
+
+				    			printf("el dato es: %d \r\n ", final_data);
+
+
+                     /*funcion Y de el acelerometro*/
+				case 'y':
+				case 'Y':
+				            i2c0MasterReadByte(&new_data_MSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_Y_MSB);
+
+							i2c0MasterReadByte(&new_data_LSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_Y_LSB);
+
+						    final_data=(new_data_MSB<<6)|(new_data_LSB>>2);
+
+						    printf("el dato es: %d \r\n ", final_data);
+
+						 /*funcion Z de el acelerometro*/
+				case'z':
+				case'Z':
+					        i2c0MasterReadByte(&new_data_MSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_Z_MSB);
+
+							i2c0MasterReadByte(&new_data_LSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_Z_LSB);
+
+							final_data=(new_data_MSB<<6)|(new_data_LSB>>2);
+
+							printf("el dato es: %d \r\n ", final_data);
+
 				}
+
+
     		}else{
     			printf("error\r\n");
     		}
