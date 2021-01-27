@@ -28,8 +28,10 @@
 
 #define MMA8451_WHO_AM_I_MEMORY_ADDRESS		0x0D
 
-#define MMA8451_OUT_X_MSB   0x01
+#define MMA8451_OUT_X_MSB  0x01
 #define MMA8451_OUT_X_LSB  0x02
+#define MMA8451_OUT_Y_MSB  0x03
+#define MMA8451_OUT_Y_LSB  0x04
 
 /*******************************************************************************
  * Private Prototypes
@@ -116,8 +118,9 @@ int main(void) {
 						printf("MMA8451 error\r\n");
 
 					break;
+					/*funcion X de el acelerometro*/
 				case 'x':
-				    			case 'X':
+				case 'X':
 				    			i2c0MasterReadByte(&new_data_MSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_X_MSB);
 
 				    			i2c0MasterReadByte(&new_data_LSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_X_LSB);
@@ -125,7 +128,21 @@ int main(void) {
 				    				final_data=(new_data_MSB<<6)|(new_data_LSB>>2);
 
 				    						printf("el dato es: %d \r\n ", final_data);
+
+
+                     /*funcion Y de el acelerometro*/
+				case 'y':
+				case 'Y':
+				            i2c0MasterReadByte(&new_data_MSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_Y_MSB);
+
+							i2c0MasterReadByte(&new_data_LSB, MMA851_I2C_DEVICE_ADDRESS,MMA8451_OUT_Y_LSB);
+
+						    final_data=(new_data_MSB<<6)|(new_data_LSB>>2);
+
+						    printf("el dato es: %d \r\n ", final_data);
 				}
+
+
     		}else{
     			printf("error\r\n");
     		}
