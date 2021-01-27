@@ -51,7 +51,7 @@ status_t i2c0MasterInit(uint32_t baud_rate) {
 	return(kStatus_Success);
 }
 /*--------------------------------------------*/
-status_t i2c0MasterReadByte(uint8_t *data, uint8_t device_address, int8_t memory_address) {
+status_t i2c0MasterReadByte(uint16_t *data, uint8_t device_address, int8_t memory_address) {
 	i2c_master_transfer_t masterXfer;
 	uint8_t i2c_rx_buffer[1];
 
