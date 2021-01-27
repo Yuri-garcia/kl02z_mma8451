@@ -28,6 +28,9 @@
 
 #define MMA8451_WHO_AM_I_MEMORY_ADDRESS		0x0D
 
+#define MMA8451_OUT_X_MSB   0x01
+#define MMA8451_OUT_X_LSB  0x02
+
 /*******************************************************************************
  * Private Prototypes
  ******************************************************************************/
@@ -55,11 +58,15 @@ int main(void) {
 	status_t status;
 	uint8_t nuevo_byte_uart;
 	uint8_t	nuevo_dato_i2c;
+	uint16_t new_data_MSB;
+	    	uint16_t new_data_LSB;
+	    	int16_t final_data ;
 
   	/* Init board hardware. */
-    BOARD_InitBootPins();
+                                                                                                                                                                           BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
+
 #ifndef BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL
     /* Init FSL debug console. */
     BOARD_InitDebugConsole();
